@@ -8,6 +8,6 @@ class Rental
 
     # associations
     book.rentals << self
-    person.rental << self
+    person.rentals << self
   end
 end
