@@ -4,14 +4,15 @@ require './book'
 require './rental'
 require './student'
 require './teacher'
+require 'date'
 
 # rubocop:disable Metrics/ClassLength, Metrics/CyclomaticComplexity
 
 class App
   def initialize
+    @rentals = []
     @people = []
     @books = []
-    @all_rentals = []
   end
 
   def menu_options
@@ -119,14 +120,14 @@ class App
     print 'Enter Specialization: '
     specialization = gets.chomp.strip.capitalize
 
-    @people << Teacher.new(age, name, specialization)
+    @people << Teacher.new(specialization, age, name = name)
     puts ' Teacher was created successfuly! '
   end
 
   def create_student
     print 'Enter Age: '
     print 'Age: '
-    age = gets.chomp
+    age = gets.chomp.to_i
 
     print 'Enter Name: '
     name = gets.chomp.strip.capitalize
@@ -140,7 +141,7 @@ class App
     when 'N', 'NO'
       permission = false
     end
-    @people << Student.new(age, name, parent_permission: permission)
+    @people << Student.new(age, name = name, parent_permission: permission)
     puts
     puts 'Student was created successfuly!'
     puts
@@ -160,22 +161,25 @@ class App
   end
 
   def create_rental
-    all_books
-    print 'Select the key of the book: '
-    book_select = gets.chomp.chomp.to_i
-    all_people
-    print 'Select the key of the person: '
-    person_select = gets.chomp.chomp.to_i
-
-    print 'Select the date: (Year/Month/Day): '
-    date = gets.chomp.strip
-    book = @books[book_select]
-    person = @people[person_select]
-    new_rental = Rental.new(date, book, person)
-    @all_rentals.push(new_rental)
-    puts
-    puts 'Rental was created successfuly!'
-    puts
+    if @books.size.zero?
+        puts 'No Books Available'
+      elsif @people.size.zero?
+        puts 'No Person Available'
+      else
+        puts 'Select a book from the following list by number'
+        @books.each_with_index { |book, index| puts "#{index}) Book Title: #{book.title}, Author: #{book.author}" }
+        rental_book = gets.chomp.to_i
+        puts 'Select a person from the following list by number (not id)'
+        @people.each_with_index do |person, index|
+          puts "#{index}) Name: #{person.name} Age: #{person.age} Id: #{person.id}"
+        end
+        rental_person = gets.chomp.to_i
+        puts 'Enter date in format YYYY-MM-DD'
+        date = convert_date(gets)
+        rental_detail = Rental.new(@people[rental_person], @books[rental_book], date)
+        @rentals.push(rental_detail)
+        puts 'Rental Successfully Created'
+      end
   end
 
   def list_rentals
@@ -189,10 +193,14 @@ class App
     @people.each do |person|
       next unless person.id == entry
 
-      @all_rentals.each do |rental|
+      @rentals.each do |rental|
         puts "Rental date: #{rental.date} - #{rental.book} by #{rental.person}"
       end
     end
+  end
+
+  def convert_date(str)
+    Date.parse(str)
   end
 end
 
