@@ -25,4 +25,4 @@ class CreateRental
     print('Rental created', "Date: #{date}, Rental to: #{selected_person.name}, Book: #{selected_book.title}")
   end
 end
-j
+
