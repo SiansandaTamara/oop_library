@@ -23,4 +23,3 @@ class CreateTeacher
     puts ' Teacher was created successfuly! '
   end
 end
-
