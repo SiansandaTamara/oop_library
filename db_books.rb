@@ -21,7 +21,7 @@ module BooksPersistence
     return data unless File.exist?(file) && File.read(file) != ''
 
     JSON.parse(File.read(file)).each do |book|
-      data << Book.new(book['title'], book['author'], book['id'])
+      data << Book.new(book['title'], book['author'])
     end
 
     data
