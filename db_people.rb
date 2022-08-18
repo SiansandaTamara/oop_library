@@ -39,11 +39,11 @@ module PeoplePersistence
     end
 
     JSON.parse(File.read(teachers_file)).each do |teacher|
-      data << Teacher.new(teacher['id'], teacher['age'], teacher['specialization'], teacher['name'])
+      data << Teacher.new(teacher['age'], teacher['specialization'], teacher['name'])
     end
 
     JSON.parse(File.read(students_file)).each do |student|
-      data << Student.new(student['id'], student['age'], student['classroom'], student['name'],
+      data << Student.new(student['age'], student['name'],
                           parent_permission: student['parent_permission'])
     end
 
