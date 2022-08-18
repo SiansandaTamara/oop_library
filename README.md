@@ -48,6 +48,10 @@ Kindly modify the files as needed.
 - GitHub: [@SiansandaTamara](https://github.com/SiansandaTamara)
 - Twitter: [@twitterhandle](https://twitter.com/TamaraSiansanda)
 
+👤 **Ezeoke Stanley Ifeanyi**
+
+- GitHub: [@SiansandaTamara](https://github.com/Stanleeeeee)
+- Twitter: [@twitterhandle](https://twitter.com/Stanmega89)
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
