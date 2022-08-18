@@ -17,9 +17,9 @@ module PeoplePersistence
     people.each do |person|
       case person
       when Teacher
-        teachers_data << { id: person.id, age: person.age, specialization: person.specialization, name: person.name }
+        teachers_data << { age: person.age, specialization: person.specialization, name: person.name }
       when Student
-        students_data << { id: person.id, age: person.age, classroom: person.classroom.label, name: person.name,
+        students_data << { age: person.age, classroom: person.classroom.label, name: person.name,
                            parent_permission: person.parent_permission }
       end
     end
