@@ -1,16 +1,28 @@
-require './person'
-require 'yaml'
+require 'spec_helper'
 
 describe Person do
   before :each do
-    @person = Person.new(1, 26, 'TEST')
+    @person = Person.new(22, 'zamir')
   end
 
-  it 'age is correct ?' do
-    expect(@person.age).to eq 26
+  describe '#new' do
+    it 'returns new person object' do
+      @person.should be_an_instance_of Person
+    end
+    it 'throws error when arguments less than 1' do
+      -> { Person.new }.should raise_exception ArgumentError
+    end
+    it 'throws error when arguments more than 3' do
+      -> { Person.new('age', 'name', true, 'extra_argument') }.should raise_exception ArgumentError
+    end
   end
 
-  it 'can use services ?' do
-    @person.can_use_servies?.should == true
+  describe 'testing argument values' do
+    it 'returns correct age' do
+      @person.age.should eql 22
+    end
+    it 'returns correct name' do
+      @person.name.should eql 'zamir'
+    end
   end
 end
