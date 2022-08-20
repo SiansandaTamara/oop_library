@@ -1,25 +1,21 @@
-require 'spec_helper'
+require './captalize'
+require './trimmer'
+require './person'
 
 describe Decorator do
   before :each do
-    @decorator = Decorator.new('stanley')
+    @person = Person.new 40, 'maximulus'
+    @captalize = CapitalizeDecorator.new(@person)
+    @trimmer = TrimmerDecorator.new(@captalize)
   end
-
-  describe '#new' do
-    it 'returns new decorator object' do
-      @decorator.should be_an_instance_of Decorator
-    end
-    it 'throws error when arguments less than 1' do
-      -> { Decorator.new }.should raise_exception ArgumentError
-    end
-    it 'throws error when arguments more than 1' do
-      -> { Decorator.new('name', 'extra_argument') }.should raise_exception ArgumentError
-    end
+  it 'Should display name' do
+    expect(@person.correct_name).to eq 'maximulus'
   end
-
-  describe 'testing argument values' do
-    it 'returns correct nameable' do
-      @decorator.nameable.should eql 'stanley'
-    end
+  it 'should capitalize personne name' do
+    expect(@captalize.correct_name).to eq 'Maximulus'
+  end
+  it 'should slice if sting is more than 10 char' do
+    expect(@trimmer.correct_name).to eq 'Maximulus'
+    expect(@trimmer.correct_name.length).to be <= 10
   end
 end
